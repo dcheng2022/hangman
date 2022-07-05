@@ -18,7 +18,13 @@ def display_word(word)
   print "\n"
 end
 
-def validate_input
-  input = gets.chomp.downcase
-  input.match?(/[^a-z]/) ? validate_input : input
+input_history = []
+def validate_input(input_history)
+  loop do
+    input = gets.chomp.downcase
+    next if input.match?(/[^a-z]/) || input_history.include?(input)
+
+    input_history << input
+    return input
+  end
 end
