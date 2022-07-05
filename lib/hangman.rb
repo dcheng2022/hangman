@@ -17,3 +17,8 @@ def display_word(word)
   word_length.times { print '__ ' }
   print "\n"
 end
+
+def validate_input
+  input = gets.chomp.downcase
+  input.match?(/[^a-z]/) ? validate_input : input
+end
