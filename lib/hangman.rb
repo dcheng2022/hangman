@@ -28,3 +28,13 @@ def validate_input(input_history)
     return input
   end
 end
+
+incorrect_input = 0
+def compare_to_word(word, input, incorrect_input)
+  return incorrect_input += 1 unless word.include?(input) && input.length == word.length || input.length == 1
+
+  matched_indices = []
+  input_array = input.split('')
+  word.split('').each_with_index { |chr, idx| matched_indices << idx if input_array.include?(chr) }
+  matched_indices
+end
