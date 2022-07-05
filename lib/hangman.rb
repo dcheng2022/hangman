@@ -11,3 +11,9 @@ def select_word
   end
   select_word
 end
+
+def display_word(word)
+  word_length = word.length
+  word_length.times { print '__ ' }
+  print "\n"
+end
