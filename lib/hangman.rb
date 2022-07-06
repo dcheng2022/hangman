@@ -81,6 +81,7 @@ class Computer
 end
 
 def game
+  puts 'You are about to play a game of Hangman! The objective of the game is to guess a word by suggesting letters within a certain number of guesses.'
   computer = Computer.new('computer')
   computer.display_hangman
   computer.display_word
