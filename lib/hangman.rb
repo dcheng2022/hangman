@@ -14,6 +14,14 @@ def select_word
   select_word
 end
 
+def display_hangman(incorrect_counter)
+  hangman_file = File.open('./hangman_ascii.txt', 'r')
+  start_line = incorrect_counter * 7 + 1
+  end_line = start_line + 6
+  hangman_file.each { |line| puts line if (start_line..end_line).include?(hangman_file.lineno) }
+  hangman_file.close
+end
+
 def display_word(word, matched_indices = [])
   word_array = word.split('')
   word_array.each_with_index do |chr, idx|
@@ -41,6 +49,7 @@ def display_history(input_history)
   puts input_history.join(', ')
 end
 
+# need to add incorrect_counter here after conversion into instance method
 matched_indices = []
 def compare_to_word(word, input, matched_indices)
   return matched_indices unless word.include?(input) && (input.length == word.length || input.length == 1)
