@@ -46,6 +46,7 @@ class Computer
 
   def validate_input
     loop do
+      print 'Enter a guess: '
       self.input = gets.chomp.downcase
       next if input.match?(/[^a-z]/) || input_history.include?(input) || input.empty?
 
