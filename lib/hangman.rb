@@ -74,7 +74,7 @@ class Computer
   end
 
   def check_win
-    self.game_status = true if matched_indices.length == word.length
+    self.game_status = true if matched_indices.length == word.length || matched_indices.include?(word)
   end
 
   attr_accessor :incorrect_counter, :game_status, :word
