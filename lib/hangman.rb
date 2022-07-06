@@ -7,6 +7,7 @@ class Computer
     @input_history = []
     @matched_indices = []
     @word = select_word
+    @game_status = false
   end
 
   def select_word
@@ -67,26 +68,34 @@ class Computer
     matched_indices
   end
 
-  attr_accessor :incorrect_counter
+  def check_win
+    self.game_status = true if matched_indices.length == word.length
+  end
+
+  attr_accessor :incorrect_counter, :game_status, :word
 
   private
 
   attr_reader :name
-  attr_accessor :input_history, :matched_indices, :word, :input
+  attr_accessor :input_history, :matched_indices, :input
 end
 
 def game
   computer = Computer.new('computer')
+  computer.display_hangman
+  computer.display_word
   loop do
+    computer.validate_input
+    computer.compare_to_word
     computer.display_hangman
     computer.display_word
     computer.display_history
-    computer.validate_input
-    computer.compare_to_word
-    # need to implement win condition, input messasge, game intro, data serialization
-    break if computer.incorrect_counter == 6
+    break unless computer.incorrect_counter < 6
+
+    break if computer.check_win
   end
-  # add end of game message
+  message = computer.game_status ? 'You successfully guessed the word!' : "You failed to guess the word... it was #{computer.word}."
+  puts message
 end
 
 game
