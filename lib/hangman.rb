@@ -67,8 +67,25 @@ class Computer
     matched_indices
   end
 
+  attr_accessor :incorrect_counter
+
   private
 
   attr_reader :name
-  attr_accessor :incorrect_counter, :input_history, :matched_indices, :word, :input
+  attr_accessor :input_history, :matched_indices, :word, :input
 end
+
+def game
+  computer = Computer.new('computer')
+  loop do
+    computer.display_hangman
+    computer.display_word
+    computer.validate_input
+    computer.compare_to_word
+    # need to implement win condition, input messasge, game intro, data serialization
+    break if computer.incorrect_counter == 6
+  end
+  # add end of game message
+end
+
+game
