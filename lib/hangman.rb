@@ -1,3 +1,5 @@
+require 'pry-byebug'
+
 def select_word
   word_bank_file = File.open('./google-10000-english-no-swears.txt', 'r')
   line_number = rand(1..9894)
@@ -12,9 +14,15 @@ def select_word
   select_word
 end
 
-def display_word(word)
-  word_length = word.length
-  word_length.times { print '__ ' }
+def display_word(word, matched_indices = [])
+  word_array = word.split('')
+  word_array.each_with_index do |chr, idx|
+    if matched_indices.include?(idx)
+      print "#{chr} "
+    else
+      print '__ '
+    end
+  end
   print "\n"
 end
 
@@ -29,11 +37,10 @@ def validate_input(input_history)
   end
 end
 
-incorrect_input = 0
-def compare_to_word(word, input, incorrect_input)
-  return incorrect_input += 1 unless word.include?(input) && input.length == word.length || input.length == 1
+matched_indices = []
+def compare_to_word(word, input, matched_indices)
+  return matched_indices unless word.include?(input) && (input.length == word.length || input.length == 1)
 
-  matched_indices = []
   input_array = input.split('')
   word.split('').each_with_index { |chr, idx| matched_indices << idx if input_array.include?(chr) }
   matched_indices
