@@ -46,7 +46,7 @@ class Computer
   def validate_input
     loop do
       self.input = gets.chomp.downcase
-      next if input.match?(/[^a-z]/) || input_history.include?(input)
+      next if input.match?(/[^a-z]/) || input_history.include?(input) || input.empty?
 
       input_history << input
       return input
@@ -54,7 +54,7 @@ class Computer
   end
 
   def display_history
-    puts input_history.join(', ')
+    puts "Previous guesses: #{input_history.join(', ')}"
   end
 
   def compare_to_word
@@ -80,6 +80,7 @@ def game
   loop do
     computer.display_hangman
     computer.display_word
+    computer.display_history
     computer.validate_input
     computer.compare_to_word
     # need to implement win condition, input messasge, game intro, data serialization
