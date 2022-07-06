@@ -1,4 +1,5 @@
 require 'pry-byebug'
+require 'msgpack'
 
 class Computer
   def initialize(name)
@@ -53,6 +54,10 @@ class Computer
       input_history << input
       return input
     end
+  end
+
+  def check_save
+    return true if input.match?('save')
   end
 
   def display_history
