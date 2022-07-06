@@ -49,14 +49,11 @@ class Computer
       print "Enter a guess ('save' to save): "
       self.input = gets.chomp.downcase
       next if input.match?(/[^a-z]/) || input_history.include?(input) || input.empty?
+      return true if input.match?('save')
 
-      input_history << input unless input.match?('save')
+      input_history << input
       return input
     end
-  end
-
-  def check_save
-    return true if input.match?('save')
   end
 
   def display_history
@@ -103,8 +100,7 @@ def game
   computer.display_hangman
   computer.display_word
   loop do
-    computer.validate_input
-    if computer.check_save
+    if computer.validate_input == true
       save_game(computer)
       return
     end
