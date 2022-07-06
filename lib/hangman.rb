@@ -37,6 +37,10 @@ def validate_input(input_history)
   end
 end
 
+def display_history(input_history)
+  puts input_history.join(', ')
+end
+
 matched_indices = []
 def compare_to_word(word, input, matched_indices)
   return matched_indices unless word.include?(input) && (input.length == word.length || input.length == 1)
