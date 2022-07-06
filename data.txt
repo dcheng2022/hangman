@@ -1,0 +1,3 @@
+o:Computer:
+@nameI"computer:ET:@incorrect_counteri:@input_history[	I"a;TI"e;TI"i;TI"	save;T:@matched_indices[ii:
+@wordI"client;T:@game_statusF:@input@

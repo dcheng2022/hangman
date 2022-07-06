@@ -1,5 +1,4 @@
 require 'pry-byebug'
-require 'msgpack'
 
 class Computer
   def initialize(name)
@@ -86,13 +85,30 @@ class Computer
   attr_accessor :input_history, :matched_indices, :input
 end
 
+def save_game(instance)
+  File.open('data.txt', 'w+') do |f|
+    Marshal.dump(instance, f)
+  end
+end
+
+def load_game
+  File.open('data.txt') do |f|
+    Marshal.load(f)
+  end
+end
+
 def game
   puts 'You are about to play a game of Hangman! The objective of the game is to guess a word by suggesting letters within a certain number of guesses.'
-  computer = Computer.new('computer')
+  binding.pry
+  computer = File.exist?('./data.txt') ? load_game : Computer.new('computer')
   computer.display_hangman
   computer.display_word
   loop do
     computer.validate_input
+    if computer.check_save
+      save_game(computer)
+      return
+    end
     computer.compare_to_word
     computer.display_hangman
     computer.display_word
