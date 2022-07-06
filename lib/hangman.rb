@@ -71,7 +71,7 @@ class Computer
   end
 
   def check_win
-    self.game_status = true if matched_indices.length == word.length || matched_indices.include?(word)
+    self.game_status = true if matched_indices.length >= word.length
   end
 
   attr_accessor :incorrect_counter, :game_status, :word
@@ -96,7 +96,8 @@ end
 
 def game
   puts 'You are about to play a game of Hangman! The objective of the game is to guess a word by suggesting letters within a certain number of guesses.'
-  computer = File.exist?('./data.txt') ? load_game : Computer.new('computer')
+  save_available = File.exist?('./data.txt')
+  computer = save_available ? load_game : Computer.new('computer')
   computer.display_hangman
   computer.display_word
   loop do
@@ -112,6 +113,7 @@ def game
 
     break if computer.check_win
   end
+  File.delete('./data.txt') if save_available
   message = computer.game_status ? 'You successfully guessed the word!' : "You failed to guess the word... it was #{computer.word}."
   puts message
 end
