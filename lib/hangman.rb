@@ -50,7 +50,7 @@ class Computer
       self.input = gets.chomp.downcase
       next if input.match?(/[^a-z]/) || input_history.include?(input) || input.empty?
 
-      input_history << input
+      input_history << input unless input.match?('save')
       return input
     end
   end
@@ -99,7 +99,6 @@ end
 
 def game
   puts 'You are about to play a game of Hangman! The objective of the game is to guess a word by suggesting letters within a certain number of guesses.'
-  binding.pry
   computer = File.exist?('./data.txt') ? load_game : Computer.new('computer')
   computer.display_hangman
   computer.display_word
